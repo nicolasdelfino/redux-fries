@@ -1,11 +1,13 @@
 // redux-fries - Nicolas Delfino
 // Redux middleware to handle subscriptions
+
+/* eslint  no-console: 0 */
 const friesSingleton = (function friesSingleton() {
   let instance = null;
   const log = false;
 
   function createSubscriber() {
-    const subscriptions = {};
+    let subscriptions = {};
 
     function getSubscriptions() {
       return subscriptions;
@@ -38,10 +40,10 @@ const friesSingleton = (function friesSingleton() {
     }
 
     function addSubscription(key, cb) {
-      const uniqueKey = getKey(key);
-      if (!uniqueKey) {
+      if (!key) {
         return null;
       }
+      const uniqueKey = getKey(key);
       // add key
       subscriptions[uniqueKey] = { callback: cb };
       if (log) {
@@ -73,19 +75,19 @@ const friesSingleton = (function friesSingleton() {
       }
     }
 
-    function handleSubscriptions(key) {
+    function handleSubscriptions(actionType) {
       const arrayOfCallbacks = [];
 
       Object.keys(subscriptions).forEach((keyIdent) => {
-        if (keyIdent.indexOf(key) !== -1) {
+        if (keyIdent.indexOf(actionType) !== -1) {
           arrayOfCallbacks.push(subscriptions[keyIdent].callback);
         }
       });
       return arrayOfCallbacks;
     }
 
-    function runCallback(callback, getState) {
-      callback(getState());
+    function removeSubscriptions() {
+      subscriptions = {};
     }
 
     return {
@@ -93,7 +95,7 @@ const friesSingleton = (function friesSingleton() {
       addSubscription,
       cancelSubscription,
       handleSubscriptions,
-      runCallback,
+      removeSubscriptions,
     };
   }
 
@@ -124,14 +126,15 @@ export const handleSubscriptions = val => fries.handleSubscriptions(val);
 
 export const getSubscriptions = () => fries.getSubscriptions();
 
+export const removeAllSubscriptions = () => fries.removeSubscriptions();
+
 // middleware
 function createFriesWare() {
+  // eslint-disable-next-line
   return ({ getState }) => next => (action) => {
-    // eslint-disable-next-line no-console
-    // console.log('dispatching ', action);
+    // eslint-disable-next-line
     handleSubscriptions(action.type).forEach((callback) => {
-      // callback(getState());
-      fries.runCallback(callback, getState);
+      callback(getState());
     });
     next(action);
   };
