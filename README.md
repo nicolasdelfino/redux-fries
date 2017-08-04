@@ -18,7 +18,7 @@ import { subscribe, unsubscribe } from 'redux-fries'
 ```
 Pass the action key to subscribe and the callback that you want fired when that action dispatches.
 ```javascript
-const localSub = reduxFries.subscribe('SOME_ACTION', callback)
+const localSub = subscribe('SOME_ACTION', callback)
 ```
 ```javascript
 const callback = state => console.log(state) // e.g { subscribed:true }
@@ -27,5 +27,5 @@ const callback = state => console.log(state) // e.g { subscribed:true }
 The const localSub now holds the unique id returned from subscribe, this id consists of the key argument plus a unique identifier, e.g **'SOME_ACTION_#1'**
 To unsubscribe you just call the unsubscribe method with the unique id as the argument
 ```javascript
-reduxFries.unsubscribe(localSub)
+unsubscribe(localSub)
 ```
