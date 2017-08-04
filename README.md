@@ -1,5 +1,7 @@
 # redux-fries 🍟
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/nicolasdelfino/redux-fries.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/nicolasdelfino/redux-fries.svg?branch=master)](https://travis-ci.org/nicolasdelfino/redux-fries)
 
 > "Greasy middleware for subscribing to actions and creating tasty side-effects in your code"
