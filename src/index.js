@@ -148,3 +148,5 @@ const defaultFriesWare = ({ dispatch, getState } = {}) => {
 };
 
 export { defaultFriesWare as reduxFries };
+
+export default defaultFriesWare;
