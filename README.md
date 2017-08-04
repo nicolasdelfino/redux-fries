@@ -24,8 +24,8 @@ const localSub = subscribe('SOME_ACTION', callback)
 const callback = state => console.log(state) // e.g { subscribed:true }
 ```
 #### UNSUBSCRIBE
-The const localSub now holds the unique id returned from subscribe, this id consists of the key argument plus a unique identifier, e.g **'SOME_ACTION_#1'**
-To unsubscribe you just call the unsubscribe method with the unique id as the argument
+The const localSub now holds the unique id returned from subscribe, this ID consists of the key argument plus a unique identifier, e.g **'SOME_ACTION_#1'**
+To unsubscribe you just call the unsubscribe method with the unique id as the argument:
 ```javascript
 unsubscribe(localSub)
 ```
