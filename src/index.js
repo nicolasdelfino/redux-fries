@@ -14,7 +14,8 @@ const friesSingleton = (function friesSingleton() {
     }
 
     function getKey(key) {
-      const keys = Object.values(subscriptions);
+      // const keys = Object.values(subscriptions);
+      const keys = Object.keys(subscriptions).map(k => subscriptions[k]);
       const keyInList = Object.prototype.hasOwnProperty.call(
         subscriptions,
         `${key}_#0`,
